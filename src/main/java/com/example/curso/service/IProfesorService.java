@@ -13,7 +13,7 @@ public interface IProfesorService {
 	
 	public Profesor checkProfesorLogin(Profesor profesor);
 	
-	public void deleteProfesro(Profesor profesor);
+	public void deleteProfesor(Profesor profesor);
 	
 	public Profesor uptadeProfesor(Profesor profesor);
 	
