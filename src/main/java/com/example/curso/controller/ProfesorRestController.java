@@ -1,5 +1,6 @@
 package com.example.curso.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.curso.entity.Profesor;
+import com.example.curso.mapper.Mapper;
+import com.example.curso.model.MProfesor;
 import com.example.curso.service.IProfesorService;
 
 @RestController
@@ -55,7 +58,11 @@ public class ProfesorRestController {
 	public ResponseEntity<?> loginProfesor(@RequestBody Profesor profesor){
 		Profesor profesorDb = profesorService.checkProfesorLogin(profesor);
 		if(profesorDb!=null) {
-			return new ResponseEntity<>(profesorDb, HttpStatus.OK);
+			List<Profesor> profesores = new ArrayList<>();
+			profesores.add(profesorDb);
+			List<MProfesor> mProfesores = new ArrayList<>();
+			mProfesores = Mapper.convertirLista(profesores);
+			return new ResponseEntity<>(mProfesores, HttpStatus.OK);
 		}else {
 			return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
 		}
