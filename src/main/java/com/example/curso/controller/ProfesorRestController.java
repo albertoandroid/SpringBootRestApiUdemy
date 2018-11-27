@@ -31,6 +31,16 @@ public class ProfesorRestController {
 		return profesorService.findAll();
 	}
 	
+	@PostMapping("/find_professor")
+	public ResponseEntity<?> findProfesor(@RequestBody Profesor profesor){
+		Profesor profesorDb = profesorService.findProfesor(profesor);
+		if(profesorDb!=null) {
+			return new ResponseEntity<>(profesorDb, HttpStatus.OK);
+		}else {
+			return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
+		}
+	}
+	
 	@PostMapping("/sign_up")
 	public ResponseEntity<Void> addProfesor(@RequestBody Profesor profesor){
 		if(profesorService.findProfesor(profesor)==null) {
@@ -38,6 +48,16 @@ public class ProfesorRestController {
 			return new ResponseEntity<Void>(HttpStatus.CREATED);
 		}else {
 			return new ResponseEntity<Void>(HttpStatus.CONFLICT);
+		}
+	}
+	
+	@PostMapping("login")
+	public ResponseEntity<?> loginProfesor(@RequestBody Profesor profesor){
+		Profesor profesorDb = profesorService.checkProfesorLogin(profesor);
+		if(profesorDb!=null) {
+			return new ResponseEntity<>(profesorDb, HttpStatus.OK);
+		}else {
+			return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
 		}
 	}
 	
@@ -55,10 +75,39 @@ public class ProfesorRestController {
 		}
 	}
 	
+	@PutMapping("/update_sql")
+	public ResponseEntity<?> updateProfesorSql(@RequestBody Profesor profesor){
+		Profesor profesorDb = null;
+		profesorDb = profesorService.findByIdSQL(profesor.getId());
+		if(profesorDb != null) {
+			profesorDb.setEmail(profesor.getEmail());
+			profesorDb.setNombre(profesor.getNombre());
+			profesorService.uptadeProfesor(profesorDb);
+			return new ResponseEntity<>(profesorDb, HttpStatus.OK);
+		}else {
+			return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
+		}
+	}
+	
 	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<Void> deleteProfesor(@PathVariable(value="id")Long id){
 		profesorService.deleteProfesor(id);
 		return new ResponseEntity<Void>(HttpStatus.OK);
+	}
+	
+	@DeleteMapping("delete")
+	public ResponseEntity<Void> deleteAllProfesor(){
+		profesorService.deleteAllProfesor();
+		return new ResponseEntity<Void>(HttpStatus.OK);
+	}
+	
+	@PostMapping("delete_post")
+	public ResponseEntity<Void> deleteProfesorPost(@RequestBody Profesor profesor){
+		if(profesorService.findProfesor(profesor)!=null) {
+			profesorService.deleteProfesor(profesor);
+			return new ResponseEntity<Void>(HttpStatus.OK);
+		}
+		return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
 	}
 	
 }

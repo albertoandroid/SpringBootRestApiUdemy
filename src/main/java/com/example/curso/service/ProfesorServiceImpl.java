@@ -57,7 +57,6 @@ public class ProfesorServiceImpl implements IProfesorService{
 	@Transactional
 	public void deleteProfesor(Long id) {
 		profesorDao.deleteById(id);
-		
 	}
 
 	@Override
@@ -76,6 +75,12 @@ public class ProfesorServiceImpl implements IProfesorService{
 	@Transactional
 	public void save(Profesor profesor) {
 		profesorDao.save(profesor);
+	}
+
+	@Override
+	@Transactional
+	public void deleteAllProfesor() {
+		profesorDao.deleteAll();
 	}
 
 }
