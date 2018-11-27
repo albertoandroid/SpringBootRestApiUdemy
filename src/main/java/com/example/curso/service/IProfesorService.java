@@ -9,6 +9,8 @@ public interface IProfesorService {
 	
 	public List<Profesor> findAll();
 	
+	public void save(Profesor profesor);
+	
 	public Profesor findProfesor(Profesor profesor);
 	
 	public Profesor checkProfesorLogin(Profesor profesor);

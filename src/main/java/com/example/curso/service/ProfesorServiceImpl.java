@@ -67,8 +67,15 @@ public class ProfesorServiceImpl implements IProfesorService{
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public Profesor findByIdSQL(Long id) {
 		return profesorDao.findByIdSQL(id);
+	}
+
+	@Override
+	@Transactional
+	public void save(Profesor profesor) {
+		profesorDao.save(profesor);
 	}
 
 }
