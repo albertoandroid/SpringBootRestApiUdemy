@@ -75,6 +75,7 @@ public class ProfesorRestController {
 		if(profesorDb != null) {
 			profesorDb.setEmail(profesor.getEmail());
 			profesorDb.setNombre(profesor.getNombre());
+			profesorDb.setFoto(profesor.getFoto());
 			profesorService.uptadeProfesor(profesorDb);
 			return new ResponseEntity<>(profesorDb, HttpStatus.OK);
 		}else {
@@ -89,6 +90,7 @@ public class ProfesorRestController {
 		if(profesorDb != null) {
 			profesorDb.setEmail(profesor.getEmail());
 			profesorDb.setNombre(profesor.getNombre());
+			profesorDb.setFoto(profesor.getFoto());
 			profesorService.uptadeProfesor(profesorDb);
 			return new ResponseEntity<>(profesorDb, HttpStatus.OK);
 		}else {
